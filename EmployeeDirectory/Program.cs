@@ -25,9 +25,14 @@ namespace EmployeeDirectory
 
             foreach (Employee employee in employees)
             {
+                //employee.SetName("Dr. " + employee.GetName());
+                // employee.Name = null; // "Dr. " + employee.Name;
+
+
                 Console.WriteLine("Anställd nr " + Array.IndexOf(employees, employee));
-                Console.Write(employee.Name.Length);
-                Console.WriteLine(employee.Salary);
+                Console.WriteLine("Length: " + employee.Name.Length);
+                Console.WriteLine("Name: " + employee.Name);
+                Console.WriteLine("Salary: " + employee.Salary);
             }
 
         }
@@ -64,18 +69,6 @@ namespace EmployeeDirectory
             Console.Write(prompt);
             string answer = Console.ReadLine();
             return answer;
-        }
-    }
-
-    class Employee
-    {
-        public string Name;
-        public int Salary;
-
-        public Employee(string name, int salary)
-        {
-            Name = name;
-            Salary = salary;
         }
     }
 }
