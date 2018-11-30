@@ -11,64 +11,50 @@ namespace EmployeeDirectory
         static void Main(string[] args)
         {
 
-            Employee[] employees = new Employee[3];
+            Payroll payroll = new Payroll();
 
-            for (int i = 0; i < employees.Length; i++)
+            payroll.Add("Joe Bloggs", 10000);
+            payroll.Add("Eva Lu Ator", 47110);
+            payroll.Add("Anna", 15000);
+            payroll.Add("Bertil", 28000);
+            payroll.Add("Cecila", 22500);
+
+            Console.WriteLine("\nMata in anställda, avsluta med tomt namn.");
+            while (true)
             {
-                Console.WriteLine("Anställd nr " + (i + 1));
+                Console.WriteLine();
 
-                string name = AskForString("Name: ");
-                int salary = AskForInt("Lön: ");
-
-                employees[i] = new Employee(name, salary);
-            }
-
-            foreach (Employee employee in employees)
-            {
-                //employee.SetName("Dr. " + employee.GetName());
-                // employee.Name = null; // "Dr. " + employee.Name;
-
-
-                Console.WriteLine("Anställd nr " + Array.IndexOf(employees, employee));
-                Console.WriteLine("Length: " + employee.Name.Length);
-                Console.WriteLine("Name: " + employee.Name);
-                Console.WriteLine("Salary: " + employee.Salary);
-            }
-
-        }
-
-        private static int AskForInt(string prompt, string errorPrompt = "Felaktigt format, bara siffror får användas.")
-        {
-            int answer;
-            bool success;
-            do  // Repetera ...
-            {
-                string input = AskForString(prompt);
-
-                #region try-catch
-                // alternativ lösning
-                //try
-                //{
-                //    salary = Convert.ToInt32(salaryString);
-                //} catch (Exception e) {
-                //    Console.WriteLine(e.Message + "\nFelaktigt format, lönen sätts till 0 kr");
-                //}
-                #endregion
-
-                success = int.TryParse(input, out answer);
-                if (!success)
+                string name = Util.AskForString("Name: ");
+                if (name == "")
                 {
-                    Console.WriteLine(errorPrompt);
+                    break;
                 }
-            } while (!success);  // ... så länge som vi inte har lyckats parsa strängen
-            return answer;
-        }
+                int salary = Util.AskForInt("Lön: ");
 
-        private static string AskForString(string prompt)
-        {
-            Console.Write(prompt);
-            string answer = Console.ReadLine();
-            return answer;
+                payroll.Add(name, salary);
+            }
+
+
+            Console.WriteLine("\nAnställda:");
+            int j = 1;
+            foreach (Employee employee in payroll.GetEmployees())
+            {
+                Console.WriteLine(j + ": " + employee);
+                j++;
+            }
+
+            Console.WriteLine("\nSök efter anställd");
+            string queryName = Util.AskForString("Ange namn: ");
+            Employee byName = payroll.GetEmployeeByName(queryName);
+            Console.WriteLine(byName);
+
+            Console.WriteLine("\nLista efter lönenivå");
+            int minSalary = Util.AskForInt("Ange lönenivå: ");
+            foreach (var employee in payroll.GetEmployeesWithSalary(minSalary))
+            {
+                Console.WriteLine(employee);
+            }
+
         }
     }
 }

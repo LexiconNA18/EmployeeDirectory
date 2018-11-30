@@ -1,4 +1,6 @@
-﻿namespace EmployeeDirectory
+﻿using System;
+
+namespace EmployeeDirectory
 {
     class Employee
     {
@@ -25,23 +27,16 @@
                 }
             }
         }
-        
-        
+          
         public Employee(string name, int salary)
         {
             Name = name;
             Salary = salary;
         }
 
-        public string GetName() {
-            return this.Name;
-        }
-
-        public void SetName(string name) {
-            if (name != null)
-            {
-                this.Name = name;
-            }
+        public override string ToString()
+        {
+            return this.Name + ", " + this.Salary + " kr";
         }
     }
 }
