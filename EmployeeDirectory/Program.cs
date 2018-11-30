@@ -17,8 +17,7 @@ namespace EmployeeDirectory
             {
                 Console.WriteLine("Anställd nr " + (i + 1));
 
-                Console.Write("Namn: ");
-                string name = Console.ReadLine();
+                string name = AskForString("Name: ");
 
                 // Det här vore trevligt:
                 // int salary = AskForInt("Lön: ");
@@ -27,8 +26,7 @@ namespace EmployeeDirectory
                 bool success;
                 do  // Repetera ...
                 {
-                    Console.Write("Lön: ");
-                    string salaryString = Console.ReadLine();
+                    string salaryString = AskForString("Lön: ");
 
                     #region try-catch
                     //try
@@ -62,6 +60,13 @@ namespace EmployeeDirectory
                 Console.WriteLine(employees[i].Salary);
             }
             
+        }
+
+        private static string AskForString(string prompt)
+        {
+            Console.Write(prompt);
+            string answer = Console.ReadLine();
+            return answer;
         }
     }
 
